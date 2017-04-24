@@ -9,36 +9,67 @@ import {
 } from 'react-native';
 
 import Main from './App/Components/Main';
+import Dashboard from './App/Components/Dashboard';
 
 export default class githubNotetaker extends Component {
   render() {
-    const routes = [
-    {title: 'First Scene', name: 'Main'},
-    {title: 'Second Scene', name: 'some'},
-  ];
-  return (
-    <Navigator
-      initialRoute={routes[0]}
-      initialRouteStack={routes}
-      renderScene={(route, navigator) => {
-        if (route.name == 'Main') {
-          return <Main navigator={navigator} />
+    return (
+      <Navigator
+        initialRoute= {{ title: 'Wellcome to Github Searcher', name: 'Main' }}
+        renderScene={(route, navigator) => {
+          if (route.name == 'Main') {
+            return <Main navigator={navigator} {...route.passProps}/>
+          }
+          if (route.name == 'Dashboard') {
+            return <Dashboard navigator={navigator} {...route.passProps} />
+          }
+          else
+            return null
+        }}
+        configureScene={(route, routeStack) => Navigator.SceneConfigs.FloatFromRight}
+        navigationBar={
+          <Navigator.NavigationBar
+            routeMapper={{
+              LeftButton: (route, navigator, index, navState) =>
+                {
+                  if(index > 0) {
+                    return (
+                      <TouchableHighlight
+                        underlayColor="transparent"
+                        onPress={() => { if (index > 0) { navigator.pop() } }}>
+                        <Text style={ styles.NavButtonText }>Back</Text>
+                      </TouchableHighlight>)
+                  } 
+                  else { return null }
+                },
+              RightButton: (route, navigator, index, navState) =>
+                {
+                  if (route.onPress) return (
+                    <TouchableHighlight
+                       onPress={ () => route.onPress() }>
+                       <Text style={ styles.NavButtonText }>
+                            { route.rightText || 'Right Button' }
+                       </Text>
+                     </TouchableHighlight>)
+                },
+              Title: (route, navigator, index, navState) =>
+                { return (<Text>{ route.title || '' }</Text>); },
+             }}
+            style={styles.navBar}
+            navigationStyles={Navigator.NavigationBar.StylesIOS}
+           />
         }
-        if (route.name == 'Home') {
-          return <Main navigator={navigator} />
-        }
-        else
-          return null
-      }}
-      configureScene={(route, routeStack) => Navigator.SceneConfigs.FloatFromBottom}
-    />
-  );
+      />
+    );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
+  navBar: {
+    backgroundColor: 'white',
+  },
+  NavButtonText: {
+    marginHorizontal: 10,
   },
 });
 
