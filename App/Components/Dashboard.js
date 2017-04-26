@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, Image } from 'react-native';
 
 export default class Dashboard extends Component {
   render() {
     console.log(this.props);
     return (
       <View style={styles.container}>
-        <Text style={styles.title}> asd </Text>
-        <Text style={styles.title}> asd </Text>
-        <Text style={styles.title}> asd </Text>
-        <Text style={styles.title}> asd </Text>
-        <Text style={styles.title}> asd </Text>
-        <Text style={styles.title}> asd </Text>
-        <Text style={styles.title}> asd </Text>
         <Text style={styles.title}> {this.props.userInfo.url} </Text>
+        <Image
+           style={{width: 50, height: 50}}
+          source={{uri: this.props.userInfo.avatar_url  }}
+        />
       </View>
     );
   }

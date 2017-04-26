@@ -16,8 +16,6 @@ export default class Main extends Component {
     this.setState({
       username: e.nativeEvent.text
     });
-    
-    //
   }
   
   handleSubmit(e){
@@ -29,7 +27,7 @@ export default class Main extends Component {
         if(res.message === 'Not Found') {
           this.setState({
             error: 'User Not Found',
-            sLoading: false
+            isLoading: false
           });
         } else {
           this.props.navigator.push({
@@ -62,6 +60,12 @@ export default class Main extends Component {
         >
           <Text style={styles.buttonText}> Search </Text>
         </TouchableHighlight>
+        <ActivityIndicator
+          animating={this.state.isLoading}
+          style={[styles.centering, {height: 80}]}
+          size="large"
+        />
+        { this.state.error && <Text> {this.state.error} </Text> }
       </View>
     );
   }
