@@ -30,15 +30,15 @@ export default class Main extends Component {
             isLoading: false
           });
         } else {
+          this.setState({
+            error: false,
+            isLoading: false,
+            username: ''
+          });
           this.props.navigator.push({
             title: res.name || 'Select an Option',
             name: 'Dashboard',
             passProps: {userInfo: res}
-          });
-          this.setState({
-            error: false,
-            sLoading: false,
-            username: ''
           });
         }
       })
@@ -58,13 +58,15 @@ export default class Main extends Component {
           onPress={this.handleSubmit.bind(this)}
           underlineColor='white'
         >
-          <Text style={styles.buttonText}> Search </Text>
+        <Text style={styles.buttonText}> Search </Text>
         </TouchableHighlight>
-        <ActivityIndicator
-          animating={this.state.isLoading}
-          style={[styles.centering, {height: 80}]}
-          size="large"
-        />
+        { this.state.isLoading && 
+          <ActivityIndicator
+            animating={this.state.isLoading}
+            style={[styles.centering, {height: 80}]}
+            size="large"
+          />
+        }
         { this.state.error && <Text> {this.state.error} </Text> }
       </View>
     );
