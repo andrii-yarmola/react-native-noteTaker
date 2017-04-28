@@ -10,6 +10,8 @@ import {
 
 import Main from './App/Components/Main';
 import Dashboard from './App/Components/Dashboard';
+import Profile from './App/Components/Profile';
+import Repos from './App/Components/Repos';
 
 export default class githubNotetaker extends Component {
   render() {
@@ -22,6 +24,12 @@ export default class githubNotetaker extends Component {
           }
           if (route.name == 'Dashboard') {
             return <Dashboard navigator={navigator} {...route.passProps} />
+          }
+          if (route.name == 'Profile') {
+            return <Profile navigator={navigator} {...route.passProps} />
+          }
+          if (route.name == 'Repos') {
+            return <Repos navigator={navigator} {...route.passProps} />
           }
           else
             return null

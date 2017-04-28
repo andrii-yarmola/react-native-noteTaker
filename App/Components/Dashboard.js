@@ -22,11 +22,19 @@ export default class Dashboard extends Component {
   }
   
   goToProfile() {
-    
+     this.props.navigator.push({
+      title: 'Profile',
+      name: 'Profile',
+      passProps: {userInfo: this.props.userInfo}
+    });
   }
   
   goToRepos() {
-    
+     this.props.navigator.push({
+      title: 'Repos',
+      name: 'Repos',
+      passProps: {repos: this.props.userInfo.repos}
+    });
   }
   
   goToNotes() {
