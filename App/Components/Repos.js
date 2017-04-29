@@ -4,16 +4,18 @@ import Badge from './Badge';
 import Separator from './Helpers/Separator';
 
 export default class Repos extends Component {
-
+  openPage(url){
+    console.log(url);
+  }
   render() {
     const repos = this.props.repos;
-    const list = repos.map((item, i) => {
-      const desc = repos[i].description ? <Text style={styles.description}> {repos[i].description} </Text> : <View/>;
+    const list = repos.map((item, index) => {
+      const desc = repos[index].description ? <Text style={styles.description}> {repos[index].description} </Text> : <View/>;
       return (
         <View key={index}>
           <View style={styles.rowContainer}>
             <TouchableHighlight
-              onPress={console.log('1')}
+              onPress={this.openPage.bind(this, repos[index].html_url)}
               underlayColor='transparent'>
               <Text style={styles.name}>{repos[index].name}</Text>
             </TouchableHighlight>
@@ -33,6 +35,11 @@ export default class Repos extends Component {
   }
 }
 
+Repos.propTypes = {
+  userInfo: React.PropTypes.object.isRequired,
+  repos:  React.PropTypes.array.isRequired
+};
+
 const styles = StyleSheet.create({
   container: {
     marginTop: 65,
@@ -50,7 +57,7 @@ const styles = StyleSheet.create({
   },
   name: {
     color: '#48bbec',
-    fontSize: 16,
+    fontSize: 22,
     paddingBottom: 10
   },
   stars: {

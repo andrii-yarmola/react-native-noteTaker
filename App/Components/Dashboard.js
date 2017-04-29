@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight, Image } from 'react-native';
+import api from '../Utils/api';
 
 export default class Dashboard extends Component {
   makeBackground(btn) {
@@ -22,7 +23,7 @@ export default class Dashboard extends Component {
   }
   
   goToProfile() {
-     this.props.navigator.push({
+    this.props.navigator.push({
       title: 'Profile',
       name: 'Profile',
       passProps: {userInfo: this.props.userInfo}
@@ -30,11 +31,18 @@ export default class Dashboard extends Component {
   }
   
   goToRepos() {
-     this.props.navigator.push({
-      title: 'Repos',
-      name: 'Repos',
-      passProps: {repos: this.props.userInfo.repos}
-    });
+    api.getRepos(this.props.userInfo.login)
+      .then((res) => {
+        this.props.navigator.push({
+          title: 'Repos',
+          name: 'Repos',
+          passProps: {
+            userInfo: this.props.userInfo,
+            repos: res
+          }
+        });
+      }
+    )
   }
   
   goToNotes() {

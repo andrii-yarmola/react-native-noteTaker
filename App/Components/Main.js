@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableHighlight, ActivityIndicator } from 'react-native';
-import api from '../Utils/api'
+import api from '../Utils/api';
 
 export default class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      username: 'andrii-yarmola',
       isLoading: false,
       error: false
     }
